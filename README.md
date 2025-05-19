@@ -47,4 +47,4 @@ This project is for demonstration purposes and does not contain any real or live
 
 ## Documentation
 
-All code is documented using JavaDoc and the generated documentation can be found (here)[https://mapokapo.github.io/live-football-scoreboard/javadoc/]
+All code is documented using JavaDoc and the generated documentation can be found [here](https://mapokapo.github.io/live-football-scoreboard/javadoc/).
