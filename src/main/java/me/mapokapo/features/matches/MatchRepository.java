@@ -1,6 +1,7 @@
 package me.mapokapo.features.matches;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,18 +28,16 @@ public class MatchRepository {
 	 *         Optional.
 	 */
 	public Optional<Match> getMatchById(int matchId) {
-		// TODO
-		return null;
+		return matches.stream().filter(match -> match.getId() == matchId).findFirst();
 	}
 
 	/**
 	 * Gets all matches in the repository.
 	 * 
-	 * @return A list of all matches.
+	 * @return An unmodifiable list of all matches in the repository.
 	 */
 	public List<Match> getAllMatches() {
-		// TODO
-		return null;
+		return Collections.unmodifiableList(matches);
 	}
 
 	/**
@@ -50,16 +49,29 @@ public class MatchRepository {
 	 *                                  repository.
 	 */
 	public Match addMatch(Match match) {
-		// TODO
-		return null;
+		if (matches.stream().anyMatch(m -> m.getId() == match.getId())) {
+			throw new IllegalArgumentException("Match with ID " + match.getId() + " already exists.");
+		}
+
+		matches.add(match);
+
+		return match;
 	}
 
 	/**
 	 * Removes a match from the repository.
 	 * 
 	 * @param matchId The ID of the match to remove.
+	 * @throws IllegalArgumentException if the match does not exist in the
+	 *                                  repository.
 	 */
 	public void removeMatch(int matchId) {
-		// TODO
+		Optional<Match> match = getMatchById(matchId);
+
+		if (match.isPresent()) {
+			matches.remove(match.get());
+		} else {
+			throw new IllegalArgumentException("Match with ID " + matchId + " does not exist.");
+		}
 	}
 }
