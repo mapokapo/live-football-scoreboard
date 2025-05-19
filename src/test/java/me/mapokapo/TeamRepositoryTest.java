@@ -53,7 +53,7 @@ public class TeamRepositoryTest {
     }
 
     @Test
-    void givenEmptyDataSource_whenGettingAllTeams_shouldReturnEmptyList() {
+    void givenEmptyDataSource_whenGettingAllTeams_thenReturnEmptyList() {
         // Act
         var teams = teamRepository.getAllTeams();
 

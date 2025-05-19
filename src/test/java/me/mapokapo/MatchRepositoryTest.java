@@ -64,7 +64,7 @@ public class MatchRepositoryTest {
     }
 
     @Test
-    void givenEmptyDataSource_whenGettingAllMatches_shouldReturnEmptyList() {
+    void givenEmptyDataSource_whenGettingAllMatches_thenReturnEmptyList() {
         // Act
         var matches = matchRepository.getAllMatches();
 
