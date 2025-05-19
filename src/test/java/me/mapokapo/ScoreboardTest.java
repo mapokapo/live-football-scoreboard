@@ -25,7 +25,132 @@ public class ScoreboardTest {
 	void init() {
 		teamRepository = new TeamRepository();
 		matchRepository = new MatchRepository();
-		scoreboard = new Scoreboard(matchRepository);
+		scoreboard = new Scoreboard(matchRepository, teamRepository);
+	}
+
+	@Test
+	void givenCorrectData_whenAddingMatch_thenCreateMatch() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+
+		// Act
+		var match = scoreboard.addMatch(team1, team2);
+
+		// Assert
+		assertTrue(matchRepository.getAllMatches().size() == 1);
+		assertTrue(matchRepository.getMatchById(match.getId()).isPresent());
+		assertTrue(match.getId() == 0);
+		assertTrue(match.getHomeTeam().equals(team1));
+		assertTrue(match.getAwayTeam().equals(team2));
+		assertTrue(match.getHomeScore() == 0);
+		assertTrue(match.getAwayScore() == 0);
+	}
+
+	@Test
+	void givenSameTeamAsBothHomeAndAway_whenAddingMatch_thenThrowError() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> {
+			scoreboard.addMatch(team1, team1);
+		});
+	}
+
+	@Test
+	void givenCorrectData_whenAddingShorthandMatch_thenCreateMatch() {
+		// Act
+		var match = scoreboard.addMatch("Team A", "Team B");
+
+		// Assert
+		assertTrue(matchRepository.getAllMatches().size() == 1);
+		assertTrue(matchRepository.getMatchById(match.getId()).isPresent());
+		assertTrue(match.getId() == 0);
+		assertTrue(match.getHomeTeam().getName().equals("Team A"));
+		assertTrue(match.getAwayTeam().getName().equals("Team B"));
+		assertTrue(match.getHomeScore() == 0);
+		assertTrue(match.getAwayScore() == 0);
+	}
+
+	@Test
+	void givenNotStartedMatch_whenStartingMatch_thenStartMatch() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+		var match = scoreboard.addMatch(team1, team2);
+
+		// Act
+		scoreboard.startMatch(match.getId());
+
+		// Assert
+		assertTrue(match.isStarted());
+	}
+
+	@Test
+	void givenAlreadyStartedMatch_whenStartingMatch_thenThrowError() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+		var match = scoreboard.addMatch(team1, team2);
+		match.start();
+
+		// Act & Assert
+		assertThrows(IllegalStateException.class, () -> {
+			scoreboard.startMatch(match.getId());
+		});
+	}
+
+	@Test
+	void givenNonexistentMatch_whenStartingMatch_thenThrowError() {
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> {
+			scoreboard.startMatch(0);
+		});
+	}
+
+	@Test
+	void givenStartedMatch_whenUpdatingScore_thenUpdateScore() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+		var match = scoreboard.addMatch(team1, team2);
+		match.start();
+
+		// Act
+		scoreboard.updateScore(match.getId(), 1, 0);
+
+		// Assert
+		assertTrue(match.getHomeScore() == 1);
+		assertTrue(match.getAwayScore() == 0);
+	}
+
+	@Test
+	void givenNotStartedMatch_whenUpdatingScore_thenThrowError() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+		var match = scoreboard.addMatch(team1, team2);
+
+		// Act & Assert
+		assertThrows(IllegalStateException.class, () -> {
+			scoreboard.updateScore(match.getId(), 1, 0);
+		});
+	}
+
+	@Test
+	void givenFinishedMatch_whenUpdatingScore_thenThrowError() {
+		// Arrange
+		var team1 = new Team(0, "Team A");
+		var team2 = new Team(1, "Team B");
+		var match = scoreboard.addMatch(team1, team2);
+		match.start();
+		scoreboard.finishMatch(match.getId());
+
+		// Act & Assert
+		assertThrows(IllegalStateException.class, () -> {
+			scoreboard.updateScore(match.getId(), 1, 0);
+		});
 	}
 
 	@Test
@@ -110,22 +235,38 @@ public class ScoreboardTest {
 	}
 
 	@Test
-	void givenStartedMatch_whenFinishingMatch_thenRemoveMatchFromRepository() {
+	void givenNotStartedMatch_whenGettingSummary_thenHideMatchFromSummary() {
 		// Arrange
 		var team1 = teamRepository.addTeam(new Team(0, "Team A"));
 		var team2 = teamRepository.addTeam(new Team(1, "Team B"));
-		var match = matchRepository.addMatch(new Match(0, team1, team2));
+		matchRepository.addMatch(new Match(0, team1, team2)); // Match not started
 
 		// Act
-		match.start();
-		scoreboard.finishMatch(match.getId());
+		var summary = scoreboard.getSummary();
 
 		// Assert
-		assertTrue(matchRepository.getMatchById(match.getId()).isEmpty());
+		assertTrue(summary.isEmpty());
 	}
 
 	@Test
-	void givenAlreadyFinishedMatch_whenFinishingMatch_thenErrorThrown() {
+	void givenFinishedMatch_whenGettingSummary_thenHideMatchFromSummary() {
+		// Arrange
+		var team1 = teamRepository.addTeam(new Team(0, "Team A"));
+		var team2 = teamRepository.addTeam(new Team(1, "Team B"));
+		var match = matchRepository.addMatch(new Match(0, team1, team2));
+
+		// Act
+		match.start();
+		match.setScore(1, 0);
+		scoreboard.finishMatch(match.getId());
+
+		// Assert
+		var summary = scoreboard.getSummary();
+		assertTrue(summary.isEmpty());
+	}
+
+	@Test
+	void givenAlreadyFinishedMatch_whenFinishingMatch_thenThrowError() {
 		// Arrange
 		var team1 = teamRepository.addTeam(new Team(0, "Team A"));
 		var team2 = teamRepository.addTeam(new Team(1, "Team B"));
@@ -136,13 +277,13 @@ public class ScoreboardTest {
 		scoreboard.finishMatch(match.getId());
 
 		// Assert
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(IllegalStateException.class, () -> {
 			scoreboard.finishMatch(match.getId());
 		});
 	}
 
 	@Test
-	void givenNonexistentMatch_whenFinishingMatch_thenErrorThrown() {
+	void givenNonexistentMatch_whenFinishingMatch_thenThrowError() {
 		// Act & Assert
 		assertThrows(IllegalArgumentException.class, () -> {
 			scoreboard.finishMatch(0);
@@ -150,7 +291,7 @@ public class ScoreboardTest {
 	}
 
 	@Test
-	void givenNotStartedMatch_whenFinishingMatch_thenErrorThrown() {
+	void givenNotStartedMatch_whenFinishingMatch_thenThrowError() {
 		// Arrange
 		var team1 = teamRepository.addTeam(new Team(0, "Team A"));
 		var team2 = teamRepository.addTeam(new Team(1, "Team B"));
