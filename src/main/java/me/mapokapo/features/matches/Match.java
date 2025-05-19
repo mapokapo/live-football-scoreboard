@@ -1,6 +1,7 @@
 package me.mapokapo.features.matches;
 
 import lombok.Data;
+import lombok.NonNull;
 import lombok.Setter;
 import me.mapokapo.features.teams.Team;
 import lombok.AccessLevel;
@@ -24,11 +25,13 @@ public class Match {
 	/**
 	 * The home team of the match.
 	 */
+	@NonNull
 	private final Team homeTeam;
 
 	/**
 	 * The away team of the match.
 	 */
+	@NonNull
 	private final Team awayTeam;
 
 	/**
@@ -59,6 +62,16 @@ public class Match {
 	private boolean isStarted = false;
 
 	/**
+	 * Whether the match has finished or not.
+	 * 
+	 * @note You should not set this field directly. Use the {@link #finish()}
+	 *       method
+	 *       to finish the match.
+	 */
+	@Setter(AccessLevel.NONE)
+	private boolean isFinished = false;
+
+	/**
 	 * Constructs a new match with the given ID, home team, and away team.
 	 * 
 	 * @param id       The unique identifier for this match.
@@ -86,11 +99,16 @@ public class Match {
 	 * @param awayScore The score of the away team.
 	 * 
 	 * @throws IllegalStateException    If the match has not started yet.
+	 * @throws IllegalStateException    If the match has already finished.
 	 * @throws IllegalArgumentException If the score is negative.
 	 */
 	public void setScore(int homeScore, int awayScore) {
 		if (!isStarted) {
 			throw new IllegalStateException("Match has not started yet.");
+		}
+
+		if (isFinished) {
+			throw new IllegalStateException("Match has already finished.");
 		}
 
 		if (homeScore < 0 || awayScore < 0) {
@@ -104,16 +122,36 @@ public class Match {
 	/**
 	 * Starts the match.
 	 * 
-	 * @note You must call this method to start the match. If you attempt to set
-	 *       team scores before starting the match,
-	 *       a {@link IllegalStateException} will be thrown.
+	 * @throws IllegalStateException If the match has already finished.
 	 * @throws IllegalStateException If the match has already started.
 	 */
 	public void start() {
+		if (isFinished) {
+			throw new IllegalStateException("Match has already finished.");
+		}
+
 		if (isStarted) {
 			throw new IllegalStateException("Match has already started.");
 		}
 
 		isStarted = true;
+	}
+
+	/**
+	 * Finishes the match.
+	 * 
+	 * @throws IllegalStateException If the match has not started yet.
+	 * @throws IllegalStateException If the match has already finished.
+	 */
+	public void finish() {
+		if (!isStarted) {
+			throw new IllegalStateException("Match has not started yet.");
+		}
+
+		if (isFinished) {
+			throw new IllegalStateException("Match has already finished.");
+		}
+
+		isFinished = true;
 	}
 }
