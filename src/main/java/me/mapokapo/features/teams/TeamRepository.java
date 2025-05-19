@@ -21,6 +21,16 @@ public class TeamRepository {
 	private final List<Team> teams = new ArrayList<>();
 
 	/**
+	 * Gets the next available index for a new team. This is simply the size of
+	 * the current list of teams.
+	 * 
+	 * @return The next available index to use for creating a new team.
+	 */
+	public int getNextIndex() {
+		return teams.size();
+	}
+
+	/**
 	 * Gets a team by its ID.
 	 * 
 	 * @param teamId The ID of the team to get.
