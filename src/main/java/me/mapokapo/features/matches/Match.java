@@ -1,7 +1,6 @@
 package me.mapokapo.features.matches;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.mapokapo.features.teams.Team;
 import lombok.AccessLevel;
