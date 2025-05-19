@@ -16,12 +16,14 @@ public class MatchTest {
     void givenCorrectData_whenMatchConstructed_thenMatchCreated() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
 
         // Assert
@@ -34,10 +36,11 @@ public class MatchTest {
     void givenSameTeamAsBothHomeAndAway_whenMatchConstructed_thenErrorThrown() {
         // Arrange
         int matchId = 0;
+        int teamId = 0;
         String teamName = "Team";
 
         // Act
-        Team team = new Team(matchId, teamName);
+        Team team = new Team(teamId, teamName);
 
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
@@ -49,12 +52,14 @@ public class MatchTest {
     void givenMatchNotStarted_whenScoreSet_thenErrorThrown() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
 
         // Assert
@@ -67,12 +72,14 @@ public class MatchTest {
     void givenNegativeScore_whenSetScoreCalled_thenErrorThrown() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         match.start();
 
