@@ -23,6 +23,30 @@ public class TeamRepositoryTest {
     }
 
     @Test
+    void givenEmptyDataSource_whenGettingNextIndex_thenReturnZero() {
+        // Act
+        int nextIndex = teamRepository.getNextIndex();
+
+        // Assert
+        assertTrue(nextIndex == 0);
+    }
+
+    @Test
+    void givenNonEmptyDataSource_whenGettingNextIndex_thenReturnNextIndex() {
+        // Arrange
+        int teamId = 0;
+        String teamName = "Team";
+
+        // Act
+        Team team = new Team(teamId, teamName);
+        teamRepository.addTeam(team);
+
+        // Assert
+        int nextIndex = teamRepository.getNextIndex();
+        assertTrue(nextIndex == 1);
+    }
+
+    @Test
     void givenExistingTeamId_whenGettingTeam_thenTeamReturned() {
         // Arrange
         int teamId = 0;
