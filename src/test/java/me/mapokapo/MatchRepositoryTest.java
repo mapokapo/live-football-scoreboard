@@ -18,6 +18,32 @@ import me.mapokapo.features.teams.Team;
 public class MatchRepositoryTest {
     private MatchRepository matchRepository;
 
+    /**
+     * This method creates a sample match with two teams.
+     * 
+     * The returned values:
+     * <ul>
+     * <li>Match ID: 0</li>
+     * <li>Home Team ID: 0</li>
+     * <li>Away Team ID: 1</li>
+     * <li>Home Team Name: "Home Team"</li>
+     * <li>Away Team Name: "Away Team"</li>
+     * </ul>
+     * 
+     * @return A sample match object.
+     */
+    private Match createSampleMatch() {
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        return new Match(matchId, homeTeam, awayTeam);
+    }
+
     @BeforeEach
     void init() {
         matchRepository = new MatchRepository();
@@ -34,17 +60,8 @@ public class MatchRepositoryTest {
 
     @Test
     void givenNonEmptyDataSource_whenGettingNextIndex_thenReturnNextIndex() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
@@ -54,37 +71,19 @@ public class MatchRepositoryTest {
 
     @Test
     void givenExistingMatchId_whenGettingMatch_thenMatchReturned() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
-        Optional<Match> retrievedMatch = matchRepository.getMatchById(matchId);
+        Optional<Match> retrievedMatch = matchRepository.getMatchById(0);
         assertTrue(retrievedMatch.isPresent());
     }
 
     @Test
     void givenNonexistentMatchId_whenGettingMatch_thenNoMatchReturned() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
@@ -103,17 +102,8 @@ public class MatchRepositoryTest {
 
     @Test
     void givenDataSourceWithOneMatch_whenGettingAllMatches_thenReturnListWithOneMatch() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
@@ -123,17 +113,8 @@ public class MatchRepositoryTest {
 
     @Test
     void givenModifyingReturnedUnmodifiableListOfMatches_whenGettingAllMatches_thenThrowError() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
@@ -144,21 +125,12 @@ public class MatchRepositoryTest {
 
     @Test
     void givenEmptyDataSource_whenAddingNewMatch_thenAddNewMatch() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         Match addedMatch = matchRepository.addMatch(match);
 
         // Assert
-        assertTrue(addedMatch.getId() == matchId);
+        assertTrue(addedMatch.getId() == 0);
         assertTrue(matchRepository.getAllMatches().size() == 1);
     }
 
@@ -195,17 +167,8 @@ public class MatchRepositoryTest {
 
     @Test
     void givenExistingMatch_whenAddingNewMatch_thenThrowError() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert
@@ -216,19 +179,10 @@ public class MatchRepositoryTest {
 
     @Test
     void givenExistingMatchId_whenRemovingMatch_thenRemoveMatch() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
-        matchRepository.removeMatch(matchId);
+        matchRepository.removeMatch(0);
 
         // Assert
         assertTrue(matchRepository.getAllMatches().isEmpty());
@@ -236,17 +190,8 @@ public class MatchRepositoryTest {
 
     @Test
     void givenNonexistentMatchId_whenRemovingMatch_thenThrowError() {
-        // Arrange
-        int matchId = 0;
-        int homeTeamId = 0;
-        int awayTeamId = 1;
-        String homeTeamName = "Home Team";
-        String awayTeamName = "Away Team";
-
-        // Act
-        Team homeTeam = new Team(homeTeamId, homeTeamName);
-        Team awayTeam = new Team(awayTeamId, awayTeamName);
-        Match match = new Match(matchId, homeTeam, awayTeam);
+        // Arrange & Act
+        var match = createSampleMatch();
         matchRepository.addMatch(match);
 
         // Assert

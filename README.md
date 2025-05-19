@@ -22,7 +22,7 @@ This project is for demonstration purposes and does not contain any real or live
 ## Design principles applied
 
 - SOLID principles
-- DRY (excluding testing code)
+- DRY
 - DI
 - Repository pattern
 - Facade pattern (Scoreboard -> Match + Team)

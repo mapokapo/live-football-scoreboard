@@ -21,6 +21,31 @@ public class ScoreboardTest {
 	private MatchRepository matchRepository;
 	private Scoreboard scoreboard;
 
+	/**
+	 * This method creates a sample match with two teams.
+	 * 
+	 * The returned values:
+	 * <ul>
+	 * <li>Match ID: 0</li>
+	 * <li>Home Team ID: 0</li>
+	 * <li>Away Team ID: 1</li>
+	 * <li>Home Team Name: "Home Team"</li>
+	 * <li>Away Team Name: "Away Team"</li>
+	 * </ul>
+	 * 
+	 * @return A sample match object.
+	 */
+	private Match createSampleMatch() {
+		int homeTeamId = 0;
+		int awayTeamId = 1;
+		String homeTeamName = "Home Team";
+		String awayTeamName = "Away Team";
+
+		var team1 = teamRepository.addTeam(new Team(homeTeamId, homeTeamName));
+		var team2 = teamRepository.addTeam(new Team(awayTeamId, awayTeamName));
+		return scoreboard.addMatch(team1, team2);
+	}
+
 	@BeforeEach
 	void init() {
 		teamRepository = new TeamRepository();
@@ -76,9 +101,7 @@ public class ScoreboardTest {
 	@Test
 	void givenNotStartedMatch_whenStartingMatch_thenStartMatch() {
 		// Arrange
-		var team1 = new Team(0, "Team A");
-		var team2 = new Team(1, "Team B");
-		var match = scoreboard.addMatch(team1, team2);
+		var match = createSampleMatch();
 
 		// Act
 		scoreboard.startMatch(match.getId());
@@ -90,9 +113,7 @@ public class ScoreboardTest {
 	@Test
 	void givenAlreadyStartedMatch_whenStartingMatch_thenThrowError() {
 		// Arrange
-		var team1 = new Team(0, "Team A");
-		var team2 = new Team(1, "Team B");
-		var match = scoreboard.addMatch(team1, team2);
+		var match = createSampleMatch();
 		match.start();
 
 		// Act & Assert
@@ -112,9 +133,7 @@ public class ScoreboardTest {
 	@Test
 	void givenStartedMatch_whenUpdatingScore_thenUpdateScore() {
 		// Arrange
-		var team1 = new Team(0, "Team A");
-		var team2 = new Team(1, "Team B");
-		var match = scoreboard.addMatch(team1, team2);
+		var match = createSampleMatch();
 		match.start();
 
 		// Act
@@ -128,9 +147,7 @@ public class ScoreboardTest {
 	@Test
 	void givenNotStartedMatch_whenUpdatingScore_thenThrowError() {
 		// Arrange
-		var team1 = new Team(0, "Team A");
-		var team2 = new Team(1, "Team B");
-		var match = scoreboard.addMatch(team1, team2);
+		var match = createSampleMatch();
 
 		// Act & Assert
 		assertThrows(IllegalStateException.class, () -> {
@@ -141,9 +158,7 @@ public class ScoreboardTest {
 	@Test
 	void givenFinishedMatch_whenUpdatingScore_thenThrowError() {
 		// Arrange
-		var team1 = new Team(0, "Team A");
-		var team2 = new Team(1, "Team B");
-		var match = scoreboard.addMatch(team1, team2);
+		var match = createSampleMatch();
 		match.start();
 		scoreboard.finishMatch(match.getId());
 
