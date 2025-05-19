@@ -33,7 +33,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenSameTeamAsBothHomeAndAway_whenMatchConstructed_thenErrorThrown() {
+    void givenSameTeamAsBothHomeAndAway_whenMatchConstructed_thenThrowError() {
         // Arrange
         int matchId = 0;
         int teamId = 0;
@@ -49,7 +49,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchNotStarted_whenScoreSet_thenErrorThrown() {
+    void givenMatchNotStarted_whenSettingScore_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -69,7 +69,29 @@ public class MatchTest {
     }
 
     @Test
-    void givenNegativeScore_whenSetScoreCalled_thenErrorThrown() {
+    void givenMatchFinished_whenSettingScore_thenThrowError() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        match.start();
+        match.finish();
+
+        // Assert
+        assertThrows(IllegalStateException.class, () -> {
+            match.setScore(1, 2);
+        });
+    }
+
+    @Test
+    void givenNegativeScore_whenSettingScore_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -86,6 +108,108 @@ public class MatchTest {
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
             match.setScore(-1, 1);
+        });
+    }
+
+    @Test
+    void givenMatchNotStarted_whenStartingMatch_thenMatchStarted() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+
+        // Assert
+        match.start();
+        assertTrue(match.isStarted());
+    }
+
+    @Test
+    void givenMatchStarted_whenStartingMatch_thenThrowError() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        match.start();
+
+        // Assert
+        assertThrows(IllegalStateException.class, () -> {
+            match.start();
+        });
+    }
+
+    @Test
+    void givenMatchNotStarted_whenFinishingMatch_thenThrowError() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+
+        // Assert
+        assertThrows(IllegalStateException.class, () -> {
+            match.finish();
+        });
+    }
+
+    @Test
+    void givenMatchStarted_whenFinishingMatch_thenMatchFinished() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        match.start();
+        match.finish();
+
+        // Assert
+        assertTrue(match.isFinished());
+    }
+
+    @Test
+    void givenMatchFinished_whenFinishingMatch_thenThrowError() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        match.start();
+        match.finish();
+
+        // Assert
+        assertThrows(IllegalStateException.class, () -> {
+            match.finish();
         });
     }
 }
