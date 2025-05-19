@@ -8,15 +8,15 @@ import java.util.Optional;
 /**
  * This class serves as a data repository for {@link Team} objects.
  * 
- * @note The data source of this repository is a temporary in-memory solution
- *       for now, consisting of a simple ArrayList.
+ * The data source of this repository is a temporary in-memory solution
+ * for now, consisting of a simple ArrayList.
  */
 public class TeamRepository {
 	/**
 	 * Data source for teams.
 	 * 
-	 * @note This is a temporary in-memory solution for now, consisting of a simple
-	 *       ArrayList.
+	 * This is a temporary in-memory solution for now, consisting of a simple
+	 * ArrayList.
 	 */
 	private final List<Team> teams = new ArrayList<>();
 

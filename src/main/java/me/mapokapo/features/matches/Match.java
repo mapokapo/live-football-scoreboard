@@ -9,8 +9,8 @@ import lombok.AccessLevel;
 /**
  * This class represents a match between two teams.
  * 
- * @note The match is not started by default. You must call the {@link #start()}
- *       method to start the match.
+ * The match is not started by default. You must call the {@link #start()}
+ * method to start the match.
  * 
  * @author Leo Petrović
  * @since 1.0
@@ -37,8 +37,8 @@ public class Match {
 	/**
 	 * The score of the home team.
 	 * 
-	 * @note You should not set this field directly. Use the {@link #setScore(int,
-	 *       int)} method to set the score.
+	 * You should not set this field directly. Use the {@link #setScore(int,
+	 * int)} method to set the score.
 	 */
 	@Setter(AccessLevel.NONE)
 	private int homeScore = 0;
@@ -46,8 +46,8 @@ public class Match {
 	/**
 	 * The score of the away team.
 	 * 
-	 * @note You should not set this field directly. Use the {@link #setScore(int,
-	 *       int)} method to set the score.
+	 * You should not set this field directly. Use the {@link #setScore(int,
+	 * int)} method to set the score.
 	 */
 	@Setter(AccessLevel.NONE)
 	private int awayScore = 0;
@@ -55,8 +55,8 @@ public class Match {
 	/**
 	 * Whether the match has started or not.
 	 * 
-	 * @note You should not set this field directly. Use the {@link #start()} method
-	 *       to start the match.
+	 * You should not set this field directly. Use the {@link #start()} method
+	 * to start the match.
 	 */
 	@Setter(AccessLevel.NONE)
 	private boolean isStarted = false;
@@ -64,9 +64,8 @@ public class Match {
 	/**
 	 * Whether the match has finished or not.
 	 * 
-	 * @note You should not set this field directly. Use the {@link #finish()}
-	 *       method
-	 *       to finish the match.
+	 * You should not set this field directly. Use the {@link #finish()}
+	 * method to finish the match.
 	 */
 	@Setter(AccessLevel.NONE)
 	private boolean isFinished = false;

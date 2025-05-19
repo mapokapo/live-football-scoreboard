@@ -38,12 +38,14 @@ public class Scoreboard {
 	/**
 	 * Adds a match to the scoreboard.
 	 * 
-	 * @note The default state of the newly created match is:
-	 *       <ul>
-	 *       <li>Not started</li>
-	 *       <li>Not finished</li>
-	 *       <li>Scores are set to 0</li>
-	 *       </ul>
+	 * <p>
+	 * The default state of the newly created match is:
+	 * </p>
+	 * <ul>
+	 * <li>Not started</li>
+	 * <li>Not finished</li>
+	 * <li>Scores are set to 0</li>
+	 * </ul>
 	 * 
 	 * @param homeTeam The home team.
 	 * @param awayTeam The away team.
@@ -142,13 +144,15 @@ public class Scoreboard {
 	 * Returns a specially-sorted list of currently-running matches which serves as
 	 * a summary of the current scoreboard.
 	 * 
-	 * @note The summary is sorted according to the following criteria:
-	 *       <ul>
-	 *       <li>Matches are sorted by the number of goals scored in descending
-	 *       order (i.e. total goals).</li>
-	 *       <li>If two matches have the same number of goals, the match which was
-	 *       inserted last is listed first.</li>
-	 *       </ul>
+	 * <p>
+	 * The summary is sorted according to the following criteria:
+	 * </p>
+	 * <ul>
+	 * <li>Matches are sorted by the number of goals scored in descending
+	 * order (i.e. total goals).</li>
+	 * <li>If two matches have the same number of goals, the match which was
+	 * inserted last is listed first.</li>
+	 * </ul>
 	 * 
 	 * @return A list of matches sorted according to special criteria.
 	 */
