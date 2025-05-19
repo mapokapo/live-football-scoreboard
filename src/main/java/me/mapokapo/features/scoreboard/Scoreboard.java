@@ -57,6 +57,15 @@ public class Scoreboard {
 		return match;
 	}
 
+	/**
+	 * A shorthand method for adding a match to the scoreboard. This method
+	 * automatically creates the teams for the match and adds them to the
+	 * {@link TeamRepository}, using only the names of the teams.
+	 * 
+	 * @param homeTeamName The name of the home team.
+	 * @param awayTeamName The name of the away team.
+	 * @return The match object created.
+	 */
 	public Match addMatch(String homeTeamName, String awayTeamName) {
 		Team homeTeam = teamRepository.addTeam(new Team(teamRepository.getNextIndex(), homeTeamName));
 		Team awayTeam = teamRepository.addTeam(new Team(teamRepository.getNextIndex(), awayTeamName));
