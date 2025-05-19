@@ -27,12 +27,14 @@ public class MatchRepositoryTest {
     void givenExistingMatchId_whenGettingMatch_thenMatchReturned() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
 
@@ -45,12 +47,14 @@ public class MatchRepositoryTest {
     void givenNonexistentMatchId_whenGettingMatch_thenNoMatchReturned() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
 
@@ -72,12 +76,14 @@ public class MatchRepositoryTest {
     void givenDataSourceWithOneMatch_whenGettingAllMatches_thenReturnListWithOneMatch() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
 
@@ -90,12 +96,14 @@ public class MatchRepositoryTest {
     void givenEmptyDataSource_whenAddingNewMatch_thenAddNewMatch() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         Match addedMatch = matchRepository.addMatch(match);
 
@@ -109,18 +117,22 @@ public class MatchRepositoryTest {
         // Arrange
         int match1Id = 0;
         int match2Id = 1;
+        int homeTeam1Id = 0;
+        int awayTeam1Id = 1;
+        int homeTeam2Id = 2;
+        int awayTeam2Id = 3;
         String homeTeam1Name = "Home Team 1";
         String awayTeam1Name = "Away Team 2";
         String homeTeam2Name = "Home Team 2";
         String awayTeam2Name = "Away Team 2";
 
         // Act
-        Team homeTeam1 = new Team(match1Id, homeTeam1Name);
-        Team awayTeam1 = new Team(match1Id, awayTeam1Name);
+        Team homeTeam1 = new Team(homeTeam1Id, homeTeam1Name);
+        Team awayTeam1 = new Team(awayTeam1Id, awayTeam1Name);
         Match match1 = new Match(match1Id, homeTeam1, awayTeam1);
         matchRepository.addMatch(match1);
-        Team homeTeam2 = new Team(match2Id, homeTeam2Name);
-        Team awayTeam2 = new Team(match2Id, awayTeam2Name);
+        Team homeTeam2 = new Team(homeTeam2Id, homeTeam2Name);
+        Team awayTeam2 = new Team(awayTeam2Id, awayTeam2Name);
         Match match2 = new Match(match2Id, homeTeam2, awayTeam2);
         Match addedMatch = matchRepository.addMatch(match2);
 
@@ -135,12 +147,14 @@ public class MatchRepositoryTest {
     void givenExistingMatch_whenAddingNewMatch_thenThrowError() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
 
@@ -154,12 +168,14 @@ public class MatchRepositoryTest {
     void givenExistingMatchId_whenRemovingMatch_thenRemoveMatch() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
         matchRepository.removeMatch(matchId);
@@ -172,12 +188,14 @@ public class MatchRepositoryTest {
     void givenNonexistentMatchId_whenRemovingMatch_thenThrowError() {
         // Arrange
         int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
         String homeTeamName = "Home Team";
         String awayTeamName = "Away Team";
 
         // Act
-        Team homeTeam = new Team(matchId, homeTeamName);
-        Team awayTeam = new Team(matchId, awayTeamName);
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
         Match match = new Match(matchId, homeTeam, awayTeam);
         matchRepository.addMatch(match);
 
