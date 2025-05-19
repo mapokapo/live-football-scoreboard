@@ -93,6 +93,27 @@ public class MatchRepositoryTest {
     }
 
     @Test
+    void givenModifyingReturnedUnmodifiableListOfMatches_whenGettingAllMatches_thenThrowError() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        matchRepository.addMatch(match);
+
+        // Assert
+        assertThrows(UnsupportedOperationException.class, () -> {
+            matchRepository.getAllMatches().clear();
+        });
+    }
+
+    @Test
     void givenEmptyDataSource_whenAddingNewMatch_thenAddNewMatch() {
         // Arrange
         int matchId = 0;
