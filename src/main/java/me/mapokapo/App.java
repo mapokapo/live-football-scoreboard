@@ -13,6 +13,15 @@ public class App {
     private static final MatchRepository matchRepository = new MatchRepository();
 
     public static void main(String[] args) {
+        verboseUsage();
+    }
+
+    /**
+     * This method demonstrates a more verbose usage of the application.
+     * It creates teams, matches, starts them, sets scores, and prints a summary.
+     * It uses the repositories directly to manage teams and matches.
+     */
+    public static void verboseUsage() {
         // Define teams
         var mexico = teamRepository.addTeam(new Team(0, "Mexico"));
         var canada = teamRepository.addTeam(new Team(1, "Canada"));
@@ -47,9 +56,9 @@ public class App {
         match5.setScore(3, 1);
 
         // The scoreboard can either be created before or after team and match creation:
-        // the `matchRepository` variable is passed by reference and it contains all the
-        // necessary data.
-        Scoreboard scoreboard = new Scoreboard(matchRepository);
+        // the `matchRepository` and `teamRepository` parameters are passed by reference
+        // and they contain all the necessary data.
+        Scoreboard scoreboard = new Scoreboard(matchRepository, teamRepository);
 
         // Print summary of currently-running matches
         List<Match> summary = scoreboard.getSummary();
@@ -64,12 +73,63 @@ public class App {
     }
 
     /**
+     * This method demonstrates a simpler and shorter usage of the application.
+     * It only uses the {@link Scoreboard} class to manage matches and teams.
+     */
+    public static void shorthandUsage() {
+        Scoreboard scoreboard = new Scoreboard(matchRepository, teamRepository);
+
+        // Add matches
+        scoreboard.addMatch("Mexico", "Canada");
+        scoreboard.addMatch("Spain", "Brazil");
+        scoreboard.addMatch("Germany", "France");
+        scoreboard.addMatch("Uruguay", "Italy");
+        scoreboard.addMatch("Argentina", "Australia");
+
+        // Start matches
+        scoreboard.startMatch(0);
+        scoreboard.startMatch(1);
+        scoreboard.startMatch(2);
+        scoreboard.startMatch(3);
+        scoreboard.startMatch(4);
+
+        // Set scores
+        scoreboard.updateScore(0, 0, 5);
+        scoreboard.updateScore(1, 10, 2);
+        scoreboard.updateScore(2, 2, 2);
+        scoreboard.updateScore(3, 6, 6);
+        scoreboard.updateScore(4, 3, 1);
+
+        // Print summary of currently-running matches
+        List<Match> summary = scoreboard.getSummary();
+        printFormattedSummary(summary);
+
+        // Finish each match
+        scoreboard.finishMatch(0);
+        scoreboard.finishMatch(1);
+        scoreboard.finishMatch(2);
+        scoreboard.finishMatch(3);
+        scoreboard.finishMatch(4);
+
+        // Print final summary (should be empty)
+        summary = scoreboard.getSummary();
+        System.out.println();
+        printFormattedSummary(summary);
+    }
+
+    /**
      * Utility method which prints a formatted summary of the matches.
      * 
      * @param summary The summary of the matches to print.
      */
     private static void printFormattedSummary(List<Match> summary) {
         System.out.println("Match Summary:");
+
+        if (summary.isEmpty()) {
+            System.out.println("No matches found.");
+            return;
+        }
+
         for (int i = 0; i < summary.size(); i++) {
             var match = summary.get(i);
             System.out.printf(
