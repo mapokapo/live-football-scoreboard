@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.mapokapo"},{"l":"me.mapokapo.features.matches"},{"l":"me.mapokapo.features.scoreboard"},{"l":"me.mapokapo.features.teams"}];updateSearchResults();
