@@ -49,7 +49,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchNotStarted_whenSettingScore_thenThrowError() {
+    void givenNotStartedMatch_whenSettingScore_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -69,7 +69,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchFinished_whenSettingScore_thenThrowError() {
+    void givenFinishedMatch_whenSettingScore_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -112,7 +112,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchNotStarted_whenStartingMatch_thenMatchStarted() {
+    void givenNotStartedMatch_whenStartingMatch_thenMatchStarted() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -131,7 +131,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchStarted_whenStartingMatch_thenThrowError() {
+    void givenStartedMatch_whenStartingMatch_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -152,7 +152,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchNotStarted_whenFinishingMatch_thenThrowError() {
+    void givenNotStartedMatch_whenFinishingMatch_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -172,7 +172,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchStarted_whenFinishingMatch_thenMatchFinished() {
+    void givenStartedMatch_whenFinishingMatch_thenMatchFinished() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
@@ -192,7 +192,7 @@ public class MatchTest {
     }
 
     @Test
-    void givenMatchFinished_whenFinishingMatch_thenThrowError() {
+    void givenFinishedMatch_whenFinishingMatch_thenThrowError() {
         // Arrange
         int matchId = 0;
         int homeTeamId = 0;
