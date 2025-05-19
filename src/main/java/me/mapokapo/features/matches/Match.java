@@ -62,12 +62,11 @@ public class Match {
 	/**
 	 * Constructs a new match with the given ID, home team, and away team.
 	 * 
-	 * @note The teams must be different, otherwise an
-	 *       {@link IllegalArgumentException} will be thrown.
-	 * 
 	 * @param id       The unique identifier for this match.
 	 * @param homeTeam The home team of the match.
 	 * @param awayTeam The away team of the match.
+	 * 
+	 * @throws IllegalArgumentException If the home team and away team are the same.
 	 */
 	public Match(int id, Team homeTeam, Team awayTeam) {
 		this.id = id;
@@ -80,6 +79,9 @@ public class Match {
 	 * 
 	 * @param homeScore The score of the home team.
 	 * @param awayScore The score of the away team.
+	 * 
+	 * @throws IllegalStateException    If the match has not started yet.
+	 * @throws IllegalArgumentException If the score is negative.
 	 */
 	public void setScore(int homeScore, int awayScore) {
 		// TODO
@@ -91,6 +93,7 @@ public class Match {
 	 * @note You must call this method to start the match. If you attempt to set
 	 *       team scores before starting the match,
 	 *       a {@link IllegalStateException} will be thrown.
+	 * @throws IllegalStateException If the match has already started.
 	 */
 	public void start() {
 		// TODO

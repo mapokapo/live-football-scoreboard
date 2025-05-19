@@ -9,12 +9,17 @@ import me.mapokapo.features.matches.MatchRepository;
  * This class manages multiple matches. It functions as a repository for
  * {@link Match} objects.
  * 
+ * <p>
  * Supported operations:
- * - Add a match
- * - Get a match by ID
- * - Get all matches
- * - Finish a match by ID
- * - Get a summary of all matches
+ * </p>
+ * 
+ * <ul>
+ * <li>Add a match</li>
+ * <li>Get a match by ID</li>
+ * <li>Get all matches</li>
+ * <li>Finish a match by ID</li>
+ * <li>Get a summary of all matches</li>
+ * </ul>
  */
 public class Scoreboard {
 	private final MatchRepository matchRepository;

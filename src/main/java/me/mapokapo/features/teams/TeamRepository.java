@@ -20,24 +20,13 @@ public class TeamRepository {
 	private final List<Team> teams = new ArrayList<>();
 
 	/**
-	 * Adds a team to the repository.
-	 * 
-	 * @param team The team to add.
-	 * @return The added team.
-	 */
-	public Team addTeam(Team team) {
-		// TODO
-		return null;
-	}
-
-	/**
 	 * Gets a team by its ID.
 	 * 
 	 * @param teamId The ID of the team to get.
 	 * @return An Optional containing the team if found, otherwise an empty
 	 *         Optional.
 	 */
-	public Optional<Team> getTeam(int teamId) {
+	public Optional<Team> getTeamById(int teamId) {
 		// TODO
 		return null;
 	}
@@ -47,7 +36,18 @@ public class TeamRepository {
 	 * 
 	 * @return A list of all teams.
 	 */
-	public List<Team> getTeams() {
+	public List<Team> getAllTeams() {
+		// TODO
+		return null;
+	}
+
+	/**
+	 * Adds a team to the repository.
+	 * 
+	 * @param team The team to add.
+	 * @return The added team.
+	 */
+	public Team addTeam(Team team) {
 		// TODO
 		return null;
 	}

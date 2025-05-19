@@ -20,24 +20,13 @@ public class MatchRepository {
 	private final List<Match> matches = new ArrayList<>();
 
 	/**
-	 * Adds a match to the repository.
-	 * 
-	 * @param match The match to add.
-	 * @return The added match.
-	 */
-	public Match addMatch(Match match) {
-		// TODO
-		return null;
-	}
-
-	/**
 	 * Gets a match by its ID.
 	 * 
 	 * @param matchId The ID of the match to get.
 	 * @return An Optional containing the match if found, otherwise an empty
 	 *         Optional.
 	 */
-	public Optional<Match> getMatch(int matchId) {
+	public Optional<Match> getMatchById(int matchId) {
 		// TODO
 		return null;
 	}
@@ -47,7 +36,20 @@ public class MatchRepository {
 	 * 
 	 * @return A list of all matches.
 	 */
-	public List<Match> getMatches() {
+	public List<Match> getAllMatches() {
+		// TODO
+		return null;
+	}
+
+	/**
+	 * Adds a match to the repository.
+	 * 
+	 * @param match The match to add.
+	 * @return The added match.
+	 * @throws IllegalArgumentException if the match already exists in the
+	 *                                  repository.
+	 */
+	public Match addMatch(Match match) {
 		// TODO
 		return null;
 	}
