@@ -1,6 +1,7 @@
 package me.mapokapo.features.teams;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,7 @@ public class TeamRepository {
 	 *         Optional.
 	 */
 	public Optional<Team> getTeamById(int teamId) {
-		// TODO
-		return null;
+		return teams.stream().filter(team -> team.getId() == teamId).findFirst();
 	}
 
 	/**
@@ -37,8 +37,7 @@ public class TeamRepository {
 	 * @return A list of all teams.
 	 */
 	public List<Team> getAllTeams() {
-		// TODO
-		return null;
+		return Collections.unmodifiableList(teams);
 	}
 
 	/**
@@ -46,18 +45,33 @@ public class TeamRepository {
 	 * 
 	 * @param team The team to add.
 	 * @return The added team.
+	 * @throws IllegalArgumentException if the team already exists in the
+	 *                                  repository.
 	 */
 	public Team addTeam(Team team) {
-		// TODO
-		return null;
+		if (teams.stream().anyMatch(t -> t.getId() == team.getId())) {
+			throw new IllegalArgumentException("Team with ID " + team.getId() + " already exists.");
+		}
+
+		teams.add(team);
+
+		return team;
 	}
 
 	/**
 	 * Removes a team from the repository.
 	 * 
 	 * @param teamId The ID of the team to remove.
+	 * @throws IllegalArgumentException if the team does not exist in the
+	 *                                  repository.
 	 */
 	public void removeTeam(int teamId) {
-		// TODO
+		Optional<Team> team = getTeamById(teamId);
+
+		if (team.isPresent()) {
+			teams.remove(team.get());
+		} else {
+			throw new IllegalArgumentException("Team with ID " + teamId + " does not exist.");
+		}
 	}
 }
