@@ -8,6 +8,11 @@ import me.mapokapo.features.scoreboard.Scoreboard;
 import me.mapokapo.features.teams.Team;
 import me.mapokapo.features.teams.TeamRepository;
 
+/**
+ * <b>NOTE</b>: This class is here for demonstration purposes only. In a real
+ * production setting when developing a library, you would not include a main
+ * method or class.
+ */
 public class App {
     private static final TeamRepository teamRepository = new TeamRepository();
     private static final MatchRepository matchRepository = new MatchRepository();

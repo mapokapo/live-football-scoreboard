@@ -7,6 +7,12 @@
   <groupId>me.mapokapo</groupId>
   <artifactId>live-football-scoreboard</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Live Football World Cup Scoreboard Library</name>
+  <description>
+    A sample library project made in Java.
+  </description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
