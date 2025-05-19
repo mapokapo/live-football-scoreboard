@@ -24,6 +24,35 @@ public class MatchRepositoryTest {
     }
 
     @Test
+    void givenEmptyDataSource_whenGettingNextIndex_thenReturnZero() {
+        // Act
+        int nextIndex = matchRepository.getNextIndex();
+
+        // Assert
+        assertTrue(nextIndex == 0);
+    }
+
+    @Test
+    void givenNonEmptyDataSource_whenGettingNextIndex_thenReturnNextIndex() {
+        // Arrange
+        int matchId = 0;
+        int homeTeamId = 0;
+        int awayTeamId = 1;
+        String homeTeamName = "Home Team";
+        String awayTeamName = "Away Team";
+
+        // Act
+        Team homeTeam = new Team(homeTeamId, homeTeamName);
+        Team awayTeam = new Team(awayTeamId, awayTeamName);
+        Match match = new Match(matchId, homeTeam, awayTeam);
+        matchRepository.addMatch(match);
+
+        // Assert
+        int nextIndex = matchRepository.getNextIndex();
+        assertTrue(nextIndex == 1);
+    }
+
+    @Test
     void givenExistingMatchId_whenGettingMatch_thenMatchReturned() {
         // Arrange
         int matchId = 0;
