@@ -21,6 +21,16 @@ public class MatchRepository {
 	private final List<Match> matches = new ArrayList<>();
 
 	/**
+	 * Gets the next available index for a new match. This is simply the size of
+	 * the current list of matches.
+	 * 
+	 * @return The next available index to use for creating a new match.
+	 */
+	public int getNextIndex() {
+		return matches.size();
+	}
+
+	/**
 	 * Gets a match by its ID.
 	 * 
 	 * @param matchId The ID of the match to get.
