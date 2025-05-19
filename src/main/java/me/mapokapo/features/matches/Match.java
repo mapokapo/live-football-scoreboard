@@ -66,10 +66,16 @@ public class Match {
 	 * @param homeTeam The home team of the match.
 	 * @param awayTeam The away team of the match.
 	 * 
-	 * @throws IllegalArgumentException If the home team and away team are the same.
+	 * @throws IllegalArgumentException If the home team and away team are the same
+	 *                                  or have the same ID.
 	 */
 	public Match(int id, Team homeTeam, Team awayTeam) {
 		this.id = id;
+
+		if (homeTeam.equals(awayTeam) || homeTeam.getId() == awayTeam.getId()) {
+			throw new IllegalArgumentException("Home team and away team cannot be the same.");
+		}
+
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 	}
@@ -84,7 +90,16 @@ public class Match {
 	 * @throws IllegalArgumentException If the score is negative.
 	 */
 	public void setScore(int homeScore, int awayScore) {
-		// TODO
+		if (!isStarted) {
+			throw new IllegalStateException("Match has not started yet.");
+		}
+
+		if (homeScore < 0 || awayScore < 0) {
+			throw new IllegalArgumentException("Score cannot be negative.");
+		}
+
+		this.homeScore = homeScore;
+		this.awayScore = awayScore;
 	}
 
 	/**
@@ -96,6 +111,10 @@ public class Match {
 	 * @throws IllegalStateException If the match has already started.
 	 */
 	public void start() {
-		// TODO
+		if (isStarted) {
+			throw new IllegalStateException("Match has already started.");
+		}
+
+		isStarted = true;
 	}
 }
